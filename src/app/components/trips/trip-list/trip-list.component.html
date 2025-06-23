@@ -12,51 +12,6 @@
     </button>
   </div>
 
-  <!-- Search and Filter Section -->
-  <mat-card class="filter-card" *ngIf="showFilters">
-    <mat-card-content>
-      <div class="filter-row">
-        <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Destination</mat-label>
-          <input
-            matInput
-            [(ngModel)]="searchDestination"
-            (ngModelChange)="onFilterChange()"
-            placeholder="Search destination"
-          />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Departure Date</mat-label>
-          <input
-            matInput
-            type="date"
-            [(ngModel)]="searchDate"
-            (ngModelChange)="onFilterChange()"
-          />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Package Type</mat-label>
-          <mat-select
-            [(ngModel)]="selectedPackageType"
-            (ngModelChange)="onFilterChange()"
-          >
-            <mat-option value="">All Types</mat-option>
-            <mat-option *ngFor="let type of packageTypes" [value]="type">{{
-              type
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <button mat-raised-button (click)="clearFilters()" class="clear-btn">
-          Clear Filters
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
   <!-- Trips Table -->
   <mat-card class="table-card">
     <mat-card-content>
@@ -119,29 +74,6 @@
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let trip">
               <div class="action-buttons">
-                <button
-                  mat-icon-button
-                  color="primary"
-                  [routerLink]="['/trips', trip.id]"
-                >
-                  <mat-icon>visibility</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  color="accent"
-                  [routerLink]="['/trips', trip.id, 'edit']"
-                  *ngIf="isDriver()"
-                >
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="deleteTrip(trip)"
-                  *ngIf="isDriver() || isAdmin()"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
                 <button
                   mat-raised-button
                   color="primary"

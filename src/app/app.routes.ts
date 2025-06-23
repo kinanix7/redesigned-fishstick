@@ -13,7 +13,6 @@ import { RequestListComponent } from "./components/requests/request-list/request
 import { RequestFormComponent } from "./components/requests/request-form/request-form.component";
 import { AdminUsersComponent } from "./components/admin/admin-users/admin-users.component";
 import { ProfileViewComponent } from "./components/profile/profile-view/profile-view.component";
-import { ProfileEditComponent } from "./components/profile/profile-edit/profile-edit.component";
 
 export const routes: Routes = [
   // Default redirect
@@ -72,11 +71,6 @@ export const routes: Routes = [
   {
     path: "profile",
     component: ProfileViewComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: "profile/edit",
-    component: ProfileEditComponent,
     canActivate: [AuthGuard],
   },
 
