@@ -1,0 +1,129 @@
+.trip-list-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.filter-card {
+  margin-bottom: 24px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  min-width: 200px;
+  flex: 1;
+}
+
+.clear-btn {
+  white-space: nowrap;
+}
+
+.table-card {
+  overflow: hidden;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.trips-table {
+  width: 100%;
+  min-width: 800px;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-info small {
+  color: #666;
+  font-size: 12px;
+}
+
+.status-chip {
+  font-size: 12px;
+}
+
+.status-active {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-completed {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-cancelled {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.no-data {
+  text-align: center;
+  padding: 48px 24px;
+  color: #666;
+}
+
+.no-data mat-icon {
+  font-size: 64px;
+  height: 64px;
+  width: 64px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.no-data h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.no-data p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .filter-row {
+    flex-direction: column;
+  }
+
+  .filter-field {
+    min-width: unset;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}

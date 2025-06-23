@@ -1,0 +1,113 @@
+<div class="login-container">
+  <div class="login-card-wrapper">
+    <mat-card class="login-card">
+      <mat-card-header>
+        <mat-card-title class="login-title">Welcome Back</mat-card-title>
+        <mat-card-subtitle>Sign in to your account</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+          class="login-form"
+        >
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+              Enter a valid email
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hidePassword = !hidePassword"
+              type="button"
+            >
+              <mat-icon>{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading"
+            class="login-button"
+          >
+            {{ isLoading ? "Signing in..." : "Sign In" }}
+          </button>
+        </form>
+ <mat-card-actions>
+        <p class="register-link">
+          Don't have an account?
+          <a routerLink="/register" class="link">Sign up here</a>
+        </p>
+      </mat-card-actions>
+        <mat-divider class="demo-divider"></mat-divider>
+
+        <!-- Demo credentials section -->
+        <div class="demo-section">
+          <h3 class="demo-title">Demo Credentials</h3>
+          <p class="demo-subtitle">Click to auto-fill login form</p>
+          <div class="demo-credentials">
+            <div class="credential-item" (click)="fillDemoCredentials('admin')">
+              <div class="credential-role">
+                <mat-icon>admin_panel_settings</mat-icon>
+                <strong>Admin</strong>
+              </div>
+              <div class="credential-details">
+                admin&#64;deliverymatch.com / admin123
+              </div>
+            </div>
+            <div
+              class="credential-item"
+              (click)="fillDemoCredentials('driver')"
+            >
+              <div class="credential-role">
+                <mat-icon>local_shipping</mat-icon>
+                <strong>Driver</strong>
+              </div>
+              <div class="credential-details">
+                driver&#64;example.com / driver123
+              </div>
+            </div>
+            <div
+              class="credential-item"
+              (click)="fillDemoCredentials('sender')"
+            >
+              <div class="credential-role">
+                <mat-icon>send</mat-icon>
+                <strong>Sender</strong>
+              </div>
+              <div class="credential-details">
+                sender&#64;example.com / sender123
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+     
+    </mat-card>
+  </div>
+</div>

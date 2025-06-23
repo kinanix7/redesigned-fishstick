@@ -1,1 +1,390 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import Bootstrap */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Import Angular Material theme */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Import Material Icons */
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap";
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Custom utility classes */
+.text-primary {
+  color: #1976d2 !important;
+}
+
+.text-success {
+  color: #4caf50 !important;
+}
+
+.text-warning {
+  color: #ff9800 !important;
+}
+
+.text-danger {
+  color: #f44336 !important;
+}
+
+.bg-primary {
+  background-color: #1976d2 !important;
+}
+
+.bg-success {
+  background-color: #4caf50 !important;
+}
+
+.bg-warning {
+  background-color: #ff9800 !important;
+}
+
+.bg-danger {
+  background-color: #f44336 !important;
+}
+
+/* Material Design enhancements */
+.mat-elevation-z1 {
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.mat-elevation-z2 {
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.mat-elevation-z4 {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Custom card styles */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 24px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-badge.pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status-badge.completed {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.cancelled,
+.status-badge.rejected {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.status-badge.delivered,
+.status-badge.accepted {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+/* Button enhancements */
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #1976d2;
+  border-color: #1976d2;
+}
+
+.btn-primary:hover {
+  background-color: #1565c0;
+  border-color: #1565c0;
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-success:hover {
+  background-color: #43a047;
+  border-color: #43a047;
+  transform: translateY(-1px);
+}
+
+.btn-warning {
+  background-color: #ff9800;
+  border-color: #ff9800;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #f57c00;
+  border-color: #f57c00;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: #f44336;
+  border-color: #f44336;
+}
+
+.btn-danger:hover {
+  background-color: #e53935;
+  border-color: #e53935;
+  transform: translateY(-1px);
+}
+
+/* Form enhancements */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  padding: 12px 16px;
+  font-size: 14px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.25);
+}
+
+/* Table enhancements */
+.table {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+  font-weight: 600;
+  color: #333;
+  padding: 16px;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .info-card {
+    padding: 16px;
+  }
+
+  .form-container {
+    padding: 16px;
+  }
+}
+
+/* Chart.js custom styles */
+.chart-container {
+  position: relative;
+  height: 300px;
+  margin: 16px 0;
+}
+
+.chart-container canvas {
+  max-height: 100%;
+}
+
+/* Material Design overrides */
+.mat-mdc-card {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mat-mdc-button {
+  border-radius: 6px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-raised-button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.mat-mdc-raised-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* No data states */
+.no-data-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #666;
+}
+
+.no-data-state .icon {
+  font-size: 64px;
+  color: #ddd;
+  margin-bottom: 16px;
+}
+
+.no-data-state h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.no-data-state p {
+  margin: 0;
+  font-size: 14px;
+}

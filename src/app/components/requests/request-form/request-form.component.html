@@ -1,0 +1,180 @@
+<div class="request-form-container">
+  <mat-card class="request-form-card">
+    <mat-card-header>
+      <mat-card-title>Create Delivery Request</mat-card-title>
+      <mat-card-subtitle>Request delivery for your package</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Trip Information (if pre-selected) -->
+      <div class="trip-info-section" *ngIf="selectedTrip">
+        <h3 class="section-title">
+          <mat-icon>local_shipping</mat-icon>
+          Selected Trip
+        </h3>
+        <div class="trip-details">
+          <div class="detail-row">
+            <strong>Route:</strong> {{ selectedTrip.departureLocation }} →
+            {{ selectedTrip.destination }}
+          </div>
+          <div class="detail-row">
+            <strong>Driver:</strong> {{ selectedTrip.driverName }}
+          </div>
+          <div class="detail-row">
+            <strong>Departure:</strong>
+            {{ formatDate(selectedTrip.departureDate) }}
+          </div>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="requestForm"
+        (ngSubmit)="onSubmit()"
+        class="request-form"
+      >
+        <!-- Trip Selection -->
+        <div class="section" *ngIf="!selectedTrip">
+          <h3 class="section-title">
+            <mat-icon>local_shipping</mat-icon>
+            Select Trip
+          </h3>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Available Trips</mat-label>
+            <mat-select formControlName="tripId" required>
+              <mat-option *ngFor="let trip of availableTrips" [value]="trip.id">
+                {{ trip.departureLocation }} → {{ trip.destination }} ({{
+                  formatDate(trip.departureDate)
+                }})
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="requestForm.get('tripId')?.hasError('required')">
+              Please select a trip
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Location Information -->
+        <div class="section">
+          <h3 class="section-title">
+            <mat-icon>place</mat-icon>
+            Pickup & Delivery Locations
+          </h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Pickup Location</mat-label>
+              <input matInput formControlName="pickupLocation" required />
+              <mat-icon matSuffix>location_on</mat-icon>
+              <mat-error
+                *ngIf="requestForm.get('pickupLocation')?.hasError('required')"
+              >
+                Pickup location is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Delivery Location</mat-label>
+              <input matInput formControlName="deliveryLocation" required />
+              <mat-icon matSuffix>flag</mat-icon>
+              <mat-error
+                *ngIf="
+                  requestForm.get('deliveryLocation')?.hasError('required')
+                "
+              >
+                Delivery location is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Package Information -->
+        <div class="section">
+          <h3 class="section-title">
+            <mat-icon>inventory</mat-icon>
+            Package Details
+          </h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="quarter-width">
+              <mat-label>Width (cm)</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="packageWidth"
+                min="0"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="quarter-width">
+              <mat-label>Height (cm)</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="packageHeight"
+                min="0"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="quarter-width">
+              <mat-label>Length (cm)</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="packageLength"
+                min="0"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="quarter-width">
+              <mat-label>Weight (kg)</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="packageWeight"
+                min="0"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Package Type</mat-label>
+              <mat-select formControlName="packageType">
+                <mat-option *ngFor="let type of packageTypes" [value]="type">
+                  {{ formatPackageType(type) }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Description (Optional)</mat-label>
+              <textarea
+                matInput
+                formControlName="description"
+                rows="3"
+                placeholder="Describe your package..."
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button type="button" (click)="goBack()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="requestForm.invalid || isLoading"
+        (click)="onSubmit()"
+      >
+        {{ isLoading ? "Creating Request..." : "Create Request" }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

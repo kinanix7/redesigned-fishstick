@@ -1,0 +1,152 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Welcome back, {{ getCurrentUserName() }}</h1>
+    <p class="dashboard-subtitle">
+      Here's what's happening with your deliveries
+    </p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid" *ngIf="isAdmin()">
+    <mat-card class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>people</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>{{ statistics?.totalUsers || 0 }}</h3>
+        <p>Total Users</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>local_shipping</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>{{ statistics?.activeTrips || 0 }}</h3>
+        <p>Active Trips</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>inbox</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>{{ statistics?.totalRequests || 0 }}</h3>
+        <p>Total Requests</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>{{ (statistics?.acceptanceRate || 0).toFixed(1) }}%</h3>
+        <p>Acceptance Rate</p>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Role-specific sections -->
+  <div class="dashboard-content">
+    <!-- Driver Dashboard -->
+    <div *ngIf="isDriver()" class="driver-section">
+      <div class="section-row">
+        <mat-card class="quick-stats">
+          <mat-card-header>
+            <mat-card-title>Your Trips</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="quick-stat">
+              <span class="stat-number">{{ myTrips.length }}</span>
+              <span class="stat-label">Active Trips</span>
+            </div>
+            <div class="quick-stat">
+              <span class="stat-number">{{ requestsForMyTrips.length }}</span>
+              <span class="stat-label">Pending Requests</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              color="primary"
+              routerLink="/trips/create"
+            >
+              Create New Trip
+            </button>
+          </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="chart-card" *ngIf="tripChartData">
+          <mat-card-header>
+            <mat-card-title>Trip Status</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="chart-container">
+              <canvas baseChart [data]="tripChartData" [type]="'doughnut'">
+              </canvas>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Sender Dashboard -->
+    <div *ngIf="isSender()" class="sender-section">
+      <div class="section-row">
+        <mat-card class="quick-stats">
+          <mat-card-header>
+            <mat-card-title>Your Requests</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="quick-stat">
+              <span class="stat-number">{{ myRequests.length }}</span>
+              <span class="stat-label">Total Requests</span>
+            </div>
+            <div class="quick-stat">
+              <span class="stat-number">{{ getPendingRequests() }}</span>
+              <span class="stat-label">Pending</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              color="primary"
+              routerLink="/trips/available"
+            >
+              Find Trips
+            </button>
+          </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="chart-card" *ngIf="requestChartData">
+          <mat-card-header>
+            <mat-card-title>Request Status</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="chart-container">
+              <canvas baseChart [data]="requestChartData" [type]="'doughnut'">
+              </canvas>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div *ngIf="isAdmin()" class="admin-section">
+      <mat-card class="chart-card" *ngIf="adminChartData">
+        <mat-card-header>
+          <mat-card-title>System Overview</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart [data]="adminChartData" [type]="'bar'"> </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

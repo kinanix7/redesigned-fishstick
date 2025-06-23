@@ -1,0 +1,248 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>My Profile</h1>
+    <button mat-raised-button color="primary" routerLink="/profile/edit">
+      <mat-icon>edit</mat-icon>
+      Edit Profile
+    </button>
+  </div>
+
+  <div class="profile-content">
+    <!-- Profile Information Card -->
+    <mat-card class="profile-info-card">
+      <mat-card-header>
+        <div class="profile-avatar">
+          <mat-icon class="avatar-icon">account_circle</mat-icon>
+        </div>
+        <div class="profile-header-content">
+          <mat-card-title>{{ getFullName() }}</mat-card-title>
+          <mat-card-subtitle>{{ currentUser?.email }}</mat-card-subtitle>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="profile-details">
+          <div class="detail-section">
+            <h3 class="section-title">
+              <mat-icon>person</mat-icon>
+              Personal Information
+            </h3>
+
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label class="detail-label">First Name</label>
+                <span class="detail-value">{{
+                  currentUser?.firstName || "Not provided"
+                }}</span>
+              </div>
+
+              <div class="detail-item">
+                <label class="detail-label">Last Name</label>
+                <span class="detail-value">{{
+                  currentUser?.lastName || "Not provided"
+                }}</span>
+              </div>
+
+              <div class="detail-item">
+                <label class="detail-label">Email Address</label>
+                <span class="detail-value">{{
+                  currentUser?.email || "Not provided"
+                }}</span>
+              </div>
+
+              <div class="detail-item">
+                <label class="detail-label">Role</label>
+                <mat-chip-set>
+                  <mat-chip
+                    [class]="
+                      'role-chip role-' +
+                      (currentUser?.role || '').toLowerCase()
+                    "
+                  >
+                    {{ currentUser?.role || "Unknown" }}
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="detail-section" *ngIf="userProfile">
+            <h3 class="section-title">
+              <mat-icon>info</mat-icon>
+              Account Information
+            </h3>
+
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label class="detail-label">Account Status</label>
+                <mat-chip-set>
+                  <mat-chip
+                    [class]="
+                      userProfile?.active ? 'status-active' : 'status-inactive'
+                    "
+                  >
+                    {{ userProfile?.active ? "Active" : "Inactive" }}
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+
+              <div class="detail-item">
+                <label class="detail-label">Verification Status</label>
+                <mat-chip-set>
+                  <mat-chip
+                    [class]="
+                      userProfile?.verified
+                        ? 'status-verified'
+                        : 'status-unverified'
+                    "
+                  >
+                    {{ userProfile?.verified ? "Verified" : "Unverified" }}
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+
+              <div class="detail-item">
+                <label class="detail-label">Member Since</label>
+                <span class="detail-value">{{
+                  formatDate(userProfile?.createdAt)
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Role-specific information -->
+          <div class="detail-section" *ngIf="currentUser?.role">
+            <h3 class="section-title">
+              <mat-icon>{{ getRoleIcon() }}</mat-icon>
+              {{ currentUser?.role }} Information
+            </h3>
+
+            <div class="role-specific-content">
+              <div *ngIf="currentUser?.role === 'DRIVER'" class="driver-info">
+                <p class="role-description">
+                  As a driver, you can create trips and accept delivery requests
+                  from senders. Manage your trips and track your delivery
+                  history through the dashboard.
+                </p>
+                <div class="action-buttons">
+                  <button mat-raised-button color="primary" routerLink="/trips">
+                    <mat-icon>local_shipping</mat-icon>
+                    View My Trips
+                  </button>
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    routerLink="/trips/create"
+                  >
+                    <mat-icon>add</mat-icon>
+                    Create New Trip
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="currentUser?.role === 'SENDER'" class="sender-info">
+                <p class="role-description">
+                  As a sender, you can browse available trips and create
+                  delivery requests. Track your packages and communicate with
+                  drivers through the platform.
+                </p>
+                <div class="action-buttons">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    routerLink="/trips/available"
+                  >
+                    <mat-icon>search</mat-icon>
+                    Find Trips
+                  </button>
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    routerLink="/requests"
+                  >
+                    <mat-icon>inbox</mat-icon>
+                    My Requests
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="currentUser?.role === 'ADMIN'" class="admin-info">
+                <p class="role-description">
+                  As an administrator, you have full access to manage users,
+                  trips, and delivery requests. Monitor system activity and
+                  ensure platform security.
+                </p>
+                <div class="action-buttons">
+                  <button mat-raised-button color="primary" routerLink="/admin">
+                    <mat-icon>admin_panel_settings</mat-icon>
+                    Admin Panel
+                  </button>
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    routerLink="/dashboard"
+                  >
+                    <mat-icon>dashboard</mat-icon>
+                    System Dashboard
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Quick Actions Card -->
+    <mat-card class="quick-actions-card">
+      <mat-card-header>
+        <mat-card-title>Quick Actions</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="quick-actions">
+          <button
+            mat-stroked-button
+            class="action-button"
+            routerLink="/profile/edit"
+          >
+            <mat-icon>edit</mat-icon>
+            <span>Edit Profile</span>
+          </button>
+
+          <button
+            mat-stroked-button
+            class="action-button"
+            routerLink="/dashboard"
+          >
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
+          </button>
+
+          <button
+            mat-stroked-button
+            class="action-button"
+            (click)="refreshProfile()"
+          >
+            <mat-icon>refresh</mat-icon>
+            <span>Refresh</span>
+          </button>
+
+          <button
+            mat-stroked-button
+            class="action-button"
+            color="warn"
+            (click)="logout()"
+          >
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

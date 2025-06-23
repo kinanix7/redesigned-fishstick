@@ -1,0 +1,131 @@
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.register-card-wrapper {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  padding: 16px;
+  background: linear-gradient(135deg, #e8f5e8 0%, #e3f2fd 100%);
+  border: 1px solid #e0e0e0;
+}
+
+.role-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.role-item {
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.role-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.role-header mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.role-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  padding-left: 26px;
+}
+
+.register-card {
+  padding: 20px;
+}
+
+.register-title {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.name-row {
+  display: flex;
+  gap: 12px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.register-button {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+mat-card-actions {
+  justify-content: center;
+}
+
+.login-link {
+  text-align: center;
+  margin: 0;
+  color: #666;
+}
+
+.link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+mat-card-subtitle {
+  text-align: center;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .name-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

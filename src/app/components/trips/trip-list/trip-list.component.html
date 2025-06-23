@@ -1,0 +1,170 @@
+<div class="trip-list-container">
+  <div class="page-header">
+    <h1>{{ pageTitle }}</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/trips/create"
+      *ngIf="isDriver()"
+    >
+      <mat-icon>add</mat-icon>
+      Create Trip
+    </button>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <mat-card class="filter-card" *ngIf="showFilters">
+    <mat-card-content>
+      <div class="filter-row">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Destination</mat-label>
+          <input
+            matInput
+            [(ngModel)]="searchDestination"
+            (ngModelChange)="onFilterChange()"
+            placeholder="Search destination"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Departure Date</mat-label>
+          <input
+            matInput
+            type="date"
+            [(ngModel)]="searchDate"
+            (ngModelChange)="onFilterChange()"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Package Type</mat-label>
+          <mat-select
+            [(ngModel)]="selectedPackageType"
+            (ngModelChange)="onFilterChange()"
+          >
+            <mat-option value="">All Types</mat-option>
+            <mat-option *ngFor="let type of packageTypes" [value]="type">{{
+              type
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button (click)="clearFilters()" class="clear-btn">
+          Clear Filters
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Trips Table -->
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="filteredTrips" class="trips-table">
+          <ng-container matColumnDef="departure">
+            <th mat-header-cell *matHeaderCellDef>Departure</th>
+            <td mat-cell *matCellDef="let trip">
+              <div class="location-info">
+                <strong>{{ trip.departureLocation }}</strong>
+                <small>{{ formatDate(trip.departureDate) }}</small>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="destination">
+            <th mat-header-cell *matHeaderCellDef>Destination</th>
+            <td mat-cell *matCellDef="let trip">{{ trip.destination }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="driver" *ngIf="!isDriver()">
+            <th mat-header-cell *matHeaderCellDef>Driver</th>
+            <td mat-cell *matCellDef="let trip">{{ trip.driverName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="capacity">
+            <th mat-header-cell *matHeaderCellDef>Capacity</th>
+            <td mat-cell *matCellDef="let trip">
+              <span *ngIf="trip.availableCapacity"
+                >{{ trip.availableCapacity }} items</span
+              >
+              <span *ngIf="!trip.availableCapacity">-</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="packageType">
+            <th mat-header-cell *matHeaderCellDef>Package Type</th>
+            <td mat-cell *matCellDef="let trip">
+              <mat-chip-set *ngIf="trip.acceptedPackageType">
+                <mat-chip>{{ trip.acceptedPackageType }}</mat-chip>
+              </mat-chip-set>
+              <span *ngIf="!trip.acceptedPackageType">Any</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let trip">
+              <mat-chip-set>
+                <mat-chip
+                  [class]="'status-chip status-' + trip.status.toLowerCase()"
+                >
+                  {{ trip.status }}
+                </mat-chip>
+              </mat-chip-set>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let trip">
+              <div class="action-buttons">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  [routerLink]="['/trips', trip.id]"
+                >
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="accent"
+                  [routerLink]="['/trips', trip.id, 'edit']"
+                  *ngIf="isDriver()"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteTrip(trip)"
+                  *ngIf="isDriver() || isAdmin()"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [routerLink]="['/requests/create']"
+                  [queryParams]="{ tripId: trip.id }"
+                  *ngIf="isSender() && trip.status === 'ACTIVE'"
+                >
+                  Request Delivery
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <div class="no-data" *ngIf="filteredTrips.length === 0">
+          <mat-icon>local_shipping</mat-icon>
+          <h3>No trips found</h3>
+          <p>{{ getNoDataMessage() }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,154 @@
+<div class="request-list-container">
+  <div class="page-header">
+    <h1>{{ pageTitle }}</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/trips/available"
+      *ngIf="isSender()"
+    >
+      <mat-icon>add</mat-icon>
+      Create Request
+    </button>
+  </div>
+
+  <!-- Requests Table -->
+  <mat-card class="table-card">
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="requests" class="requests-table">
+          <ng-container matColumnDef="tripInfo">
+            <th mat-header-cell *matHeaderCellDef>Trip Info</th>
+            <td mat-cell *matCellDef="let request">
+              <div class="trip-info">
+                <strong>Trip #{{ request.tripId }}</strong>
+                <small>{{ formatDate(request.createdAt) }}</small>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="sender" *ngIf="!isSender()">
+            <th mat-header-cell *matHeaderCellDef>Sender</th>
+            <td mat-cell *matCellDef="let request">
+              <div class="sender-info">
+                <strong>{{ request.senderName }}</strong>
+                <small>{{ request.senderEmail }}</small>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="locations">
+            <th mat-header-cell *matHeaderCellDef>Locations</th>
+            <td mat-cell *matCellDef="let request">
+              <div class="location-info">
+                <div class="location-row">
+                  <mat-icon class="location-icon">location_on</mat-icon>
+                  <span>{{ request.pickupLocation }}</span>
+                </div>
+                <div class="location-row">
+                  <mat-icon class="location-icon">flag</mat-icon>
+                  <span>{{ request.deliveryLocation }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="package">
+            <th mat-header-cell *matHeaderCellDef>Package</th>
+            <td mat-cell *matCellDef="let request">
+              <div class="package-info">
+                <mat-chip-set *ngIf="request.packageType">
+                  <mat-chip>{{ request.packageType }}</mat-chip>
+                </mat-chip-set>
+                <div class="package-dimensions" *ngIf="hasDimensions(request)">
+                  <small>
+                    {{ request.packageWidth }}×{{ request.packageHeight }}×{{
+                      request.packageLength
+                    }}
+                    cm
+                    <span *ngIf="request.packageWeight"
+                      >, {{ request.packageWeight }} kg</span
+                    >
+                  </small>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let request">
+              <mat-chip-set>
+                <mat-chip
+                  [class]="'status-chip status-' + request.status.toLowerCase()"
+                >
+                  {{ request.status }}
+                </mat-chip>
+              </mat-chip-set>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let request">
+              <div class="action-buttons">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  [routerLink]="['/requests', request.id]"
+                >
+                  <mat-icon>visibility</mat-icon>
+                </button>
+
+                <!-- Driver actions -->
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="actionMenu"
+                  *ngIf="isDriver() && request.status === 'PENDING'"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #actionMenu="matMenu">
+                  <button
+                    mat-menu-item
+                    (click)="updateStatus(request, RequestStatus.ACCEPTED)"
+                  >
+                    <mat-icon color="primary">check_circle</mat-icon>
+                    Accept
+                  </button>
+                  <button
+                    mat-menu-item
+                    (click)="updateStatus(request, RequestStatus.REJECTED)"
+                  >
+                    <mat-icon color="warn">cancel</mat-icon>
+                    Reject
+                  </button>
+                </mat-menu>
+
+                <!-- Mark as delivered button -->
+                <button
+                  mat-raised-button
+                  color="accent"
+                  size="small"
+                  (click)="updateStatus(request, RequestStatus.DELIVERED)"
+                  *ngIf="isDriver() && request.status === 'ACCEPTED'"
+                >
+                  Mark Delivered
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <div class="no-data" *ngIf="requests.length === 0">
+          <mat-icon>inbox</mat-icon>
+          <h3>No requests found</h3>
+          <p>{{ getNoDataMessage() }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

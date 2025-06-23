@@ -1,0 +1,138 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-card-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card {
+  padding: 20px;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-button {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.demo-section {
+  margin-top: 24px;
+}
+
+.demo-title {
+  color: #1976d2;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  text-align: center;
+}
+
+.demo-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.demo-divider {
+  margin: 24px 0;
+}
+
+.demo-credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.credential-item {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.credential-item:hover {
+  background: #e3f2fd;
+  border-color: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.credential-role {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.credential-role mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.credential-details {
+  font-size: 12px;
+  color: #666;
+  font-family: "Courier New", monospace;
+  padding-left: 26px;
+}
+
+mat-card-actions {
+  justify-content: center;
+}
+
+.register-link {
+  text-align: center;
+  margin: 0;
+  color: #666;
+}
+
+.link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+mat-card-subtitle {
+  text-align: center;
+  color: #666;
+}

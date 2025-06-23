@@ -1,0 +1,138 @@
+.request-list-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.table-card {
+  overflow: hidden;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.requests-table {
+  width: 100%;
+  min-width: 900px;
+}
+
+.trip-info,
+.sender-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.trip-info small,
+.sender-info small {
+  color: #666;
+  font-size: 12px;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.location-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #666;
+}
+
+.package-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.package-dimensions {
+  font-size: 12px;
+  color: #666;
+}
+
+.status-chip {
+  font-size: 12px;
+}
+
+.status-pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status-accepted {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-rejected {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.status-delivered {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.no-data {
+  text-align: center;
+  padding: 48px 24px;
+  color: #666;
+}
+
+.no-data mat-icon {
+  font-size: 64px;
+  height: 64px;
+  width: 64px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.no-data h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.no-data p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}

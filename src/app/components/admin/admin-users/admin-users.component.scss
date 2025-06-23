@@ -1,0 +1,135 @@
+.admin-users-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.stats-summary {
+  display: flex;
+  gap: 24px;
+}
+
+.stat {
+  color: #666;
+  font-size: 14px;
+}
+
+.table-card {
+  overflow: hidden;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  min-width: 800px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info small {
+  color: #666;
+  font-size: 12px;
+}
+
+.status-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.role-chip {
+  font-size: 12px;
+}
+
+.role-admin {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.role-driver {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.role-sender {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-active {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-inactive {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.status-verified {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-unverified {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.no-data {
+  text-align: center;
+  padding: 48px 24px;
+  color: #666;
+}
+
+.no-data mat-icon {
+  font-size: 64px;
+  height: 64px;
+  width: 64px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.no-data h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.no-data p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .stats-summary {
+    justify-content: space-around;
+  }
+}
